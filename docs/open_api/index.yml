@@ -1,0 +1,12 @@
+---
+openapi: "3.0.0"
+info:
+  $ref: "./info/index.yml"
+tags:
+  - name: "Starships"
+    description: "Starships related endpoints"
+paths:
+  $ref: "./paths/index.yml"
+components:
+  schemas:
+    $ref: "./schemas/index.yml"

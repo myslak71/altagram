@@ -1,0 +1,5 @@
+pytest==6.2.2
+pytest-postgresql==2.6.0
+pytest-cov==2.11.1
+responses==0.12.1
+coveralls==3.0.0

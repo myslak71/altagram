@@ -1,0 +1,80 @@
+---
+Starship:
+  type: "object"
+  properties:
+    name:
+      type: "string"
+      example: "Cool starship"
+      description: "Starship name"
+    hyperdrive_rating:
+      type: "number"
+      example: "7.0"
+      description: "Starship hyperdrive rating"
+  required:
+    - name
+    - hyperdrive_rating
+
+ValidationErrorResponse:
+  type: "object"
+  properties:
+    name:
+      const: "Bad Request"
+      description: "Error code"
+    code:
+      const: 400
+      description: "Error code"
+    description:
+      type: "string"
+      example: "`page` has to be a positive integer`"
+      description: "Error description"
+  required:
+    - name
+    - code
+    - description
+
+UnknownErrorResponse:
+  type: "object"
+  properties:
+    name:
+      const: "Internal Server Error"
+      description: "Error code"
+    code:
+      const: 500
+      description: "Error code"
+    description:
+      type: "string"
+      example: "Unknown error has occurred"
+      description: "Error description"
+  required:
+    - name
+    - code
+    - description
+
+Response:
+  type: "object"
+  properties:
+    count:
+      type: "string"
+      minimum: 0,
+      description: "Number of all saved starships"
+    pages:
+      type: "integer"
+      minimum: 0,
+      description: "Number of result pages"
+    next:
+      type: [ "integer", "null" ]
+      minimum: 0,
+      description: "A link to the next result page"
+    prev:
+      type: [ "integer", "null" ]
+      minimum: 0,
+      description: "A link to the previous result page"
+    results:
+      type: "array"
+      items: "#/Starship"
+  required:
+    - count
+    - pages
+    - next
+    - prev
+    - results

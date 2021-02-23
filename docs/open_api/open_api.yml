@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  description: Starships REST API documentation
+  title: Starships
+tags:
+  - name: Starships
+    description: Starships related endpoints
+paths:
+  /starships/:
+    parameters:
+      - in: query
+        name: page_size
+        description: >-
+          Indicates the number of desired starships to be returned in the
+          response
+        schema:
+          type: integer
+          minimum: 1
+      - in: query
+        name: page
+        description: Indicates the starting page from which the starship will be returned
+        schema:
+          type: integer
+          minimum: 1
+      - in: query
+        name: sort_by
+        description: Indicates the field the records are sorted by
+        schema:
+          type: str
+          enum:
+            - name
+            - hyperdrive_rating
+      - in: query
+        name: order_by
+        description: Indicates the order of returned starships
+        schema:
+          type: str
+          enum:
+            - asc
+            - desc
+    get:
+      tags:
+        - Starships
+      summary: Get a list of starships
+      description: Return a list of starships.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnknownErrorResponse'
+components:
+  schemas:
+    Starship:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Cool starship
+          description: Starship name
+        hyperdrive_rating:
+          type: number
+          example: '7.0'
+          description: Starship hyperdrive rating
+      required:
+        - name
+        - hyperdrive_rating
+    ValidationErrorResponse:
+      type: object
+      properties:
+        name:
+          const: Bad Request
+          description: Error code
+        code:
+          const: 400
+          description: Error code
+        description:
+          type: string
+          example: '`page` has to be a positive integer`'
+          description: Error description
+      required:
+        - name
+        - code
+        - description
+    UnknownErrorResponse:
+      type: object
+      properties:
+        name:
+          const: Internal Server Error
+          description: Error code
+        code:
+          const: 500
+          description: Error code
+        description:
+          type: string
+          example: Unknown error has occurred
+          description: Error description
+      required:
+        - name
+        - code
+        - description
+    Response:
+      type: object
+      properties:
+        count:
+          type: string
+          minimum: '0,'
+          description: Number of all saved starships
+        pages:
+          type: integer
+          minimum: '0,'
+          description: Number of result pages
+        next:
+          type:
+            - integer
+            - 'null'
+          minimum: '0,'
+          description: A link to the next result page
+        prev:
+          type:
+            - integer
+            - 'null'
+          minimum: '0,'
+          description: A link to the previous result page
+        results:
+          type: array
+          items: '#/Starship'
+      required:
+        - count
+        - pages
+        - next
+        - prev
+        - results

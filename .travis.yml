@@ -1,0 +1,13 @@
+---
+language: python
+services: docker
+cache: pip
+jobs:
+  include:
+    - name: "Python 3.9 Linux"
+      python: 3.9
+install:
+  - pip3 install --upgrade pip
+script:
+  - make lint
+  - make run-tests

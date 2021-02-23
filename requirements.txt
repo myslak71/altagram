@@ -1,0 +1,14 @@
+Flask==1.1.2
+flask-caching==1.9.0
+flask-marshmallow==0.14.0
+Flask-RESTful==0.3.8
+flask-sqlalchemy==2.4.4
+gunicorn==20.0.4
+requests==2.25.1
+requests-html==0.10.0
+redis==3.5.3
+marshmallow-sqlalchemy==0.24.2
+psycopg2-binary==2.8.6
+alembic==1.5.4
+Werkzeug~=1.0.1
+pydantic==1.7.3

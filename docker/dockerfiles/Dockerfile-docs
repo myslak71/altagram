@@ -1,0 +1,8 @@
+FROM node:13.7
+ENV PATH=/node/node_modules/.bin:$PATH
+
+COPY . /docs
+RUN mkdir /node
+WORKDIR /docs/open_api
+
+RUN npm install --prefix /node swagger-merger@1.4.3 redoc-cli@0.10.2
