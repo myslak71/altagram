@@ -47,25 +47,25 @@ class StarshipResource(Resource):
         Raise `ValidationError` if passed pagination query arguments
         can't be cast to integer or are lower than `1`.
         """
-        msg = "`{}` has to be a positive integer"
+        description = "`{}` has to be a positive integer"
 
         try:
             page = int(request.args.get("page", app.config["DEFAULT_PAGE_NUMBER"]))
         except ValueError as exception:
-            raise ValidationError(msg.format("page")) from exception
+            raise ValidationError(description.format("page")) from exception
 
         if page < 1:
-            raise ValidationError(msg.format("page"))
+            raise ValidationError(description.format("page"))
 
         try:
             page_size = int(
                 request.args.get("page_size", app.config["DEFAULT_PAGE_SIZE"])
             )
         except ValueError as exception:
-            raise ValidationError(msg.format("page_size")) from exception
+            raise ValidationError(description.format("page_size")) from exception
 
         if page_size < 1:
-            raise ValidationError(msg.format("page_size"))
+            raise ValidationError(description.format("page_size"))
 
     def _validate_sort_args(self) -> None:
         """
@@ -83,5 +83,5 @@ class StarshipResource(Resource):
         order_by = request.args.get("order_by", "desc")
         if order_by and order_by not in self.allowed_sort_orders:
             raise ValidationError(
-                f"`sort_by` needs to be one of {self.allowed_sort_orders}"
+                f"`order_by` needs to be one of {self.allowed_sort_orders}"
             )

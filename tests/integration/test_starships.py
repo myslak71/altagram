@@ -197,7 +197,7 @@ def test_starships_invalid_order_by(
     assert response.status_code == 400
     assert json.loads(response.data) == {
         "code": 400,
-        "description": "`sort_by` needs to be one of ('asc', 'desc')",
+        "description": "`order_by` needs to be one of ('asc', 'desc')",
         "name": "Bad Request",
     }
 

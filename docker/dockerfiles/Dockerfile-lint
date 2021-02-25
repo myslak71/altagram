@@ -2,7 +2,7 @@ FROM python:3.9.1-slim-buster
 
 WORKDIR /code
 
-COPY requirements-lint.txt /code/
+COPY requirements-lint.txt /code
 RUN pip install -r requirements-lint.txt
 
 COPY . /code

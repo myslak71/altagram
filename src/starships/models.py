@@ -1,7 +1,11 @@
 """Spaceship database model module."""
+from typing import TypeVar
+
 from sqlalchemy import Column, Float, String
 
 from starships.extensions import DB
+
+StarshipType = TypeVar("StarshipType", bound="Starship")
 
 
 class Starship(DB.Model):
@@ -10,7 +14,7 @@ class Starship(DB.Model):
     __tablename__ = "starships"
 
     name = Column(String, primary_key=True)
-    hyperdrive_rating = Column(Float, primary_key=True)
+    hyperdrive_rating = Column(Float)
 
     def __repr__(self) -> str:
         """Return object representation."""
@@ -18,7 +22,7 @@ class Starship(DB.Model):
             f'Starship(name="{self.name}", hyperdrive_rating={self.hyperdrive_rating}'
         )
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: StarshipType) -> bool:  # type: ignore
         """Compare starships field by field."""
         return (
             self.name == other.name

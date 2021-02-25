@@ -4,7 +4,6 @@ Flask extensions module.
 Contains extensions variables used in the application initialization.
 """
 from flask import Blueprint
-from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import BaseQuery, SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -20,7 +19,6 @@ SESSION_FACTORY = sessionmaker(bind=ENGINE, query_cls=BaseQuery)
 SESSION = scoped_session(SESSION_FACTORY)
 
 DB = SQLAlchemy()
-MA = Marshmallow()
 
 BLUEPRINT = Blueprint("api", "starships.app")
 RESTFUL_API = StarshipsApi(BLUEPRINT)

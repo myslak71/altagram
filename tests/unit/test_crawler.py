@@ -43,7 +43,7 @@ def test_get_starships(databank_page, starship1_page, starship2_page):
 
 @patch.object(crawler, "_DB_SESSION")
 @patch("starships.crawler.get_starships")
-def test_crawl_starships(get_starships_mock, session_mock):
+def test_crawl_starships(_, session_mock):
     """Test if no error occurs for valid responses."""
     session_mock.query.return_value.first.return_value = False
     with pytest.raises(SystemExit) as exception:

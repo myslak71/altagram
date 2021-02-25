@@ -24,8 +24,8 @@ class StarshipsApi(Api):
         Log exception and return BadRequest for `ValidationError` and
         `InternalServerError` for other exceptions.
         """
-        LOGGER.debug(str(exception))
         if isinstance(exception, ValidationError):
+            LOGGER.debug(str(exception))
             return {
                 "code": HTTPStatus.BAD_REQUEST,
                 "name": HTTPStatus.BAD_REQUEST.phrase,

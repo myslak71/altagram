@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Module containing starship crawler."""
 import re
 from typing import List, Optional

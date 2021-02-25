@@ -8,24 +8,18 @@ services:
     container_name: altagram-test
     env_file:
       - ./envs/test.env
-    stdin_open: true
-    tty: true
-    volumes:
-      - ".:/code"
     depends_on:
       - altagram-db-test
 
   altagram-db-test:
     image: postgres:13
     container_name: altagram-db-test
-    ports:
-      - 5432:5432
     environment:
       - POSTGRES_DB=altagram
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: pg_isready -U postgres
       interval: 10s
       timeout: 5s
       retries: 5

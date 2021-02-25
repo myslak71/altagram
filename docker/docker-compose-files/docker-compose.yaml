@@ -15,10 +15,10 @@ services:
       - |
        python -m starships.crawler &&
        gunicorn -w 4 "starships.app:create_app()" --bind=0.0.0.0:7777
-    container_name: starships_web
+    container_name: altagram-web
     restart: on-failure
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost" ]
+      test: curl http://localhost/starships/
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -34,7 +34,7 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: psql -h localhost -U postgres -d altagram
+      test: pg_isready -U postgres
       interval: 10s
       timeout: 5s
       retries: 5
@@ -44,8 +44,6 @@ services:
     build:
       context: .
       dockerfile: docker/dockerfiles/Dockerfile-migrations
-    volumes:
-      - .:/code
     depends_on:
       - altagram-db
     env_file:
@@ -54,14 +52,14 @@ services:
     container_name: starships_migrations
     restart: on-failure
     healthcheck:
-      test: [ "CMD", "psql -h localhost -U postgres -d altagram -c 'SELECT name  FROM starships LIMIT 1'" ]
+      test: psql -h localhost -U postgres -d altagram -c 'SELECT name FROM starships LIMIT 1`
       interval: 1m30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
   altagram-nginx:
-    container_name: nginx
+    container_name: altagram-nginx
     build: ./nginx
     ports:
       - "8000:8000"
@@ -72,6 +70,6 @@ services:
       timeout: 5s
       interval: 5s
       retries: 5
-      test: [ "CMD", "service", "nginx", "status" ]
+      test: service nginx status
     volumes:
       - .:/code
